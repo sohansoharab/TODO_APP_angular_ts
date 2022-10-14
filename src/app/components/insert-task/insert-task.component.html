@@ -1,0 +1,31 @@
+<div class="entry_wrapper card border-info mx-0 justify-content-evenly">
+    <div class="justify-content-md-center m-0 py-2 row card-header border-info text-center align-middle">
+        <h3 class="col-3 m-0">Insert A Task</h3>
+    </div>
+    <form class="form_wrapper row w-100 mx-0 p-3" name="formGroup" #formGroup="ngForm" (ngSubmit)="insertTask(formGroup)">
+        <div class="form_wrapper row mx-0 px-0 justify-content-evenly">
+            <div class="date col-2">
+                <label for="due_date">Date</label><br>
+                <input required type="date" class="w-100" name="due_date" id="" ngModel #due_date="ngModel" min="{{current_date}}">
+            </div>
+            <div class="task_title col-3">
+                <label for="task_title">Task Title</label><br>
+                <input required minlength="5" type="text" class="w-100" name="task_title" #task_title="ngModel" ngModel>
+            </div>
+            <div class="remarks col-3">
+                <label for="remarks">Remarks</label><br>
+                <input type="text" class="w-100" name="remarks" #remarks="ngModel" ngModel>
+            </div>
+            <div class="status col-1">
+                <label for="status">Status</label><br>
+                <select required name="status" #status="ngModel" ngModel id="" class="w-100 py-1">
+                    <option *ngFor="let statusOption of statusOptions" [ngValue]="statusOption">{{statusOption}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="submit_button row justify-content-md-center my-2 mx-0">
+            <button class="col-2 btn btn-primary" [ngClass]="{'disabled' : formGroup.invalid==true}">Insert</button>
+        </div>
+    </form>
+
+</div>

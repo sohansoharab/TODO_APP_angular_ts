@@ -1,0 +1,48 @@
+
+
+<div [ngClass]="outer_classes">
+    <div class="card-header text-center m-0"><h3 class="m-0 p-0"><strong>{{required_status}}</strong></h3></div>
+    <div class="card-body">
+        <ul class="m-0 p-0 w-100">
+            <li *ngFor="let task of tasks; last as isLast"  class="w-100 row align-items-center justify-content-center">
+                <div class="task_wrapper" *ngIf="task.status==required_status">
+                    <div class="w-100">
+                        <h4 [hidden]="task.enableEditSignal==true" class="w-100"><strong>{{task.task_title}}</strong></h4>
+                        <div [hidden]="task.enableEditSignal==false" class="task_title">
+                            <label for="task_title">Task Title</label><br>
+                            <input required minlength="5" type="text" class="w-100" name="task_title" [(ngModel)]="task.task_title" value="task.task_title">
+                        </div>
+                    </div>
+                    <div class="w-100 m-0">
+                        <p [hidden]="task.enableEditSignal==true" class="m-0">{{task.remarks}}</p>
+                        <div [hidden]="task.enableEditSignal==false" class="remarks">
+                            <label for="remarks">Remarks</label><br>
+                            <input type="text" class="w-100" name="remarks" [(ngModel)]="task.remarks" value="task.remarks">
+                        </div>
+                    </div>
+                    <div class="w-100">
+                        <small [hidden]="task.enableEditSignal==true">Due Date: {{task.due_date}}</small>
+                        <div [hidden]="task.enableEditSignal==false" class="date">
+                            <label for="due_date">Date</label><br>
+                            <input required type="date" class="w-100" name="due_date" id="" [(ngModel)]="task.due_date" value="task.due_date" min="{{current_date}}">
+                        </div>
+                    </div>
+                    <div *ngIf="task.enableEditSignal==false" class="my-2 actions row justify-content-evenly align-middle text-center">
+                        <button class="col-3 btn btn-outline-primary edit_task" (click)="editTask(task)">Edit</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Not Started'" (click)="clickStarted(task)">Started</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Started/Pending'" (click)="clickPending(task)">Mark Done</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Expired'" (click)="clickPending(task)">Started/Mark Done</button>
+                        <button class="col-3 btn btn-outline-danger delete_task" (click)="onDelete(task)">Delete</button>
+                    </div>
+                    <div *ngIf="task.enableEditSignal==true" class="my-2 actions row justify-content-evenly align-middle text-center">
+                        <button class="col-3 btn btn-outline-primary edit_task" (click)="saveTask(task)">Save</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Not Started'" (click)="clickStarted(task)">Started</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Started/Pending'" (click)="clickPending(task)">Mark Done</button>
+                        <button class="col-5 btn btn-outline-dark edit_task" *ngIf="task.status=='Expired'" (click)="clickPending(task)">Started/Mark Done</button>
+                        <button class="col-3 btn btn-outline-danger delete_task" (click)="onDelete(task)">Delete</button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
